@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCWIZERD Solutions | Professional Computer Services & Sales</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        :root {
+            --primary-blue: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary-gray: #64748b;
+            --light-gray: #f1f5f9;
+            --dark-gray: #0f172a;
+            --white: #ffffff;
+            --success-green: #22c55e;
+            --warning-orange: #f59e0b;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-light: #e2e8f0;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--white);
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: var(--white);
+            box-shadow: 0 2px 10px var(--shadow-light);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '🔧';
+            font-size: 1.2rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-blue);
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 70px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-blue);
+            border-color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-blue);
+        }
+
+        /* Stats */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-light);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px var(--shadow-medium);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .service-price {
+            font-weight: 600;
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px var(--shadow-medium);
+        }
+
+        .product-image {
+            height: 200px;
+            background: var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+        }
+
+        .product-content {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--success-green);
+        }
+
+        .product-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-available {
+            background: var(--success-green);
+            color: var(--white);
+        }
+
+        .status-limited {
+            background: var(--warning-orange);
+            color: var(--white);
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px var(--shadow-medium);
+            border-color: var(--primary-blue);
+        }
+
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .about-features {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .about-features li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .about-features li::before {
+            content: '✓';
+            color: var(--success-green);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .about-image {
+            background: linear-gradient(135deg, var(--light-gray) 0%, var(--border-light) 100%);
+            border-radius: 12px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--text-secondary);
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px var(--shadow-light);
+            border: 1px solid var(--border-light);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .contact-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .contact-details {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .contact-details strong {
+            color: var(--text-primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Search & Filter */
+        .search-filters {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            background: var(--white);
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border-light);
+            background: var(--white);
+            color: var(--text-secondary);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue);
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            width: 100%;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--light-gray);
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gray);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow-light);
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .products-grid,
+            .services-grid,
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                gap: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+        }
+
+        /* Smooth transitions */
+        .page {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .page.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo" onclick="showPage('home')">PCWIZERD</a>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('products')">Products</a></li>
+                    <li><a href="#" onclick="showPage('services')">Services</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Professional Computer Solutions</h1>
+                <p class="hero-subtitle">Expert repairs, custom builds, and premium hardware sales. Your trusted local technology partner for over 10 years.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="showPage('products')">Shop Products</a>
+                    <a href="#" class="btn btn-secondary" onclick="showPage('contact')">Get Support</a>
+                </div>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1000+</span>
+                        <span class="stat-label">Repairs Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Remote Support</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Customer Satisfaction</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <p class="section-subtitle">High-quality computers and components carefully selected for performance and reliability</p>
+                <div class="products-grid">
+                    <div class="product-card" onclick="openProductModal('gaming-pc')">
+                        <div class="product-image">
+                            🖥️
+                            <div class="product-status status-available">Available</div>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Gaming Desktop</div>
+                            <div class="product-title">Performance Gaming PC</div>
+                            <div class="product-description">Custom-built gaming computer with RTX 4070, AMD Ryzen 7, and 32GB RAM. Perfect for gaming and content creation.</div>
+                            <div class="product-price">$1,899</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openProductModal('business-laptop')">
+                        <div class="product-image">
+                            💻
+                            <div class="product-status status-available">Available</div>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Business Laptop</div>
+                            <div class="product-title">Professional Workstation</div>
+                            <div class="product-description">High-performance laptop ideal for business professionals. Intel i7, 16GB RAM, 512GB SSD with enterprise security features.</div>
+                            <div class="product-price">$1,299</div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openProductModal('custom-build')">
+                        <div class="product-image">
+                            🔧
+                            <div class="product-status status-limited">Custom Order</div>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Custom Build</div>
+                            <div class="product-title">Tailored Solutions</div>
+                            <div class="product-description">We build computers to your exact specifications. From budget-friendly to high-end workstations, we've got you covered.</div>
+                            <div class="product-price">Contact for Quote</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section class="section" style="background: var(--light-gray);">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Professional computer services to keep your technology running smoothly</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <div class="service-title">Computer Repair</div>
+                        <div class="service-description">Comprehensive hardware and software diagnostics and repair. We fix desktops, laptops, and all-in-one computers with quick turnaround times.</div>
+                        <div class="service-price">Starting at $75</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <div class="service-title">Hardware Upgrades</div>
+                        <div class="service-description">Boost your computer's performance with RAM upgrades, SSD installations, graphics card upgrades, and more. Professional installation included.</div>
+                        <div class="service-price">Starting at $50 + parts</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <div class="service-title">Virus Removal & Security</div>
+                        <div class="service-description">Complete malware removal, security software installation, and system optimization to keep your data safe and your computer running fast.</div>
+                        <div class="service-price">Starting at $99</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="#" class="btn btn-primary" onclick="showPage('services')">View All Services</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Shop by Category</h2>
+                <p class="section-subtitle">Find exactly what you need from our carefully curated selection</p>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterProducts('desktops')">
+                        <div class="category-icon">🖥️</div>
+                        <div class="category-title">Desktop Computers</div>
+                        <div class="category-count">15+ models available</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('laptops')">
+                        <div class="category-icon">💻</div>
+                        <div class="category-title">Laptops</div>
+                        <div class="category-count">25+ models available</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('components')">
+                        <div class="category-icon">🔧</div>
+                        <div class="category-title">Components</div>
+                        <div class="category-count">50+ parts in stock</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('accessories')">
+                        <div class="category-icon">⌨️</div>
+                        <div class="category-title">Accessories</div>
+                        <div class="category-count">30+ accessories</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Products Page -->
+    <div id="products" class="page">
+        <section class="section" style="margin-top: 70px;">
+            <div class="container">
+                <h2 class="section-title">Our Products</h2>
+                <p class="section-subtitle">Quality computers and components from trusted brands</p>
+                
+                <!-- Search & Filters -->
+                <div class="search-filters">
+                    <input type="text" class="search-bar" placeholder="Search products..." id="searchInput" onkeyup="searchProducts()">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                        <button class="filter-btn" onclick="filterProducts('desktops')">Desktops</button>
+                        <button class="filter-btn" onclick="filterProducts('laptops')">Laptops</button>
+                        <button class="filter-btn" onclick="filterProducts('components')">Components</button>
+                        <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="products-grid" id="productGrid">
+                    <!-- Products populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <section class="section" style="margin-top: 70px;">
+            <div class="container">
+                <h2 class="section-title">Professional Services</h2>
+                <p class="section-subtitle">Expert computer services with fast turnaround and fair pricing</p>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <div class="service-title">Computer Repair & Diagnostics</div>
+                        <div class="service-description">Complete hardware and software troubleshooting. We diagnose and repair all types of computer issues with professional tools and expertise.</div>
+                        <div class="service-price">Diagnostic: $75 | Repair: Starting at $99</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🧹</div>
+                        <div class="service-title">Computer Cleaning & Maintenance</div>
+                        <div class="service-description">Professional cleaning service including dust removal, thermal paste replacement, and component maintenance to keep your computer running cool and quiet.</div>
+                        <div class="service-price">Starting at $89</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <div class="service-title">Hardware Upgrades</div>
+                        <div class="service-description">RAM upgrades, SSD installations, graphics card upgrades, and more. We help you get the most performance from your existing computer.</div>
+                        <div class="service-price">Starting at $50 + parts cost</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">💿</div>
+                        <div class="service-title">Operating System Installation</div>
+                        <div class="service-description">Fresh Windows installation, driver setup, and software configuration. Includes data transfer from your old system when possible.</div>
+                        <div class="service-price">Starting at $129</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <div class="service-title">Virus Removal & Security</div>
+                        <div class="service-description">Complete malware removal, antivirus installation, and security hardening. We'll get your computer clean and protected.</div>
+                        <div class="service-price">Starting at $99</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">💾</div>
+                        <div class="service-title">Data Recovery</div>
+                        <div class="service-description">Professional data recovery from failed hard drives, corrupted files, and accidental deletions. Free evaluation included.</div>
+                        <div class="service-price">Evaluation: Free | Recovery: $199+</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🏢</div>
+                        <div class="service-title">Business IT Support</div>
+                        <div class="service-description">Comprehensive IT support for small businesses including network setup, server maintenance, and ongoing technical support.</div>
+                        <div class="service-price">Contact for pricing</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🔄</div>
+                        <div class="service-title">Data Backup Solutions</div>
+                        <div class="service-description">Automated backup setup for your important files. Cloud backup, external drive solutions, and network-attached storage options.</div>
+                        <div class="service-price">Starting at $149</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">📡</div>
+                        <div class="service-title">Network Setup & Troubleshooting</div>
+                        <div class="service-description">Home and office network installation, WiFi optimization, router configuration, and connectivity troubleshooting.</div>
+                        <div class="service-price">Starting at $119</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section" style="margin-top: 70px;">
+            <div class="container">
+                <h2 class="section-title">About PCWIZERD</h2>
+                <div class="about-content">
+                    <div>
+                        <p class="about-text">
+                            For over 10 years, PCWIZERD Solutions has been Pančevo's trusted source for professional computer services and quality hardware. We specialize in computer repairs, custom builds, and providing personalized technology solutions for both home users and businesses.
+                        </p>
+                        <p class="about-text">
+                            Our team of certified technicians combines technical expertise with genuine customer care. Whether you need a simple repair, a complete system upgrade, or help choosing the right computer for your needs, we're here to help.
+                        </p>
+                        <ul class="about-features">
+                            <li>Certified technicians with 10+ years experience</li>
+                            <li>Same-day repairs for most common issues</li>
+                            <li>90-day warranty on all repair work</li>
+                            <li>Free diagnostic evaluations</li>
+                            <li>Competitive pricing with no hidden fees</li>
+                            <li>Business and residential services</li>
+                        </ul>
+                    </div>
+                    <div class="about-image">
+                        🏢
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section" style="margin-top: 70px;">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch for repairs, sales, or technical support</p>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-title">Visit Our Store</div>
+                        <div class="contact-details">
+                            <strong>Miloša Trebinjca 45, Pančevo 26000</strong>
+                            Monday - Friday: 9:00 AM - 6:00 PM<br>
+                            Saturday: 9:00 AM - 3:00 PM<br>
+                            Sunday: Closed
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-title">Call Us</div>
+                        <div class="contact-details">
+                            <strong>+381 13 123-456</strong>
+                            Technical Support & Sales<br>
+                            Emergency Repairs: +381 64 123-4567
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-title">Email Us</div>
+                        <div class="contact-details">
+                            <strong>info@pcwizerd.rs</strong>
+                            We respond within 24 hours<br>
+                            For urgent issues, please call
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: var(--light-gray); padding: 3rem; border-radius: 12px; text-align: center;">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--text-primary);">Ready to Get Started?</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Contact us today for a free consultation or bring your computer in for a diagnostic evaluation.</p>
+                    <div class="cta-buttons">
+                        <a href="tel:+38113123456" class="btn btn-primary">Call Now</a>
+                        <a href="mailto:info@pcwizerd.rs" class="btn btn-secondary">Send Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">×</button>
+            <div id="modalContent">
+                <!-- Modal content populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>PcWizerd</h3>
+                    <p>Your trusted local computer service and sales center in Pančevo. Professional repairs, quality products, and expert advice since 2014.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <a href="#" onclick="showPage('services')">Computer Repair</a>
+                    <a href="#" onclick="showPage('services')">Hardware Upgrades</a>
+                    <a href="#" onclick="showPage('services')">Virus Removal</a>
+                    <a href="#" onclick="showPage('services')">Data Recovery</a>
+                    <a href="#" onclick="showPage('services')">Business IT Support</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Products</h3>
+                    <a href="#" onclick="filterProducts('desktops')">Desktop Computers</a>
+                    <a href="#" onclick="filterProducts('laptops')">Laptops</a>
+                    <a href="#" onclick="filterProducts('components')">Components</a>
+                    <a href="#" onclick="filterProducts('accessories')">Accessories</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 Miloša Trebinjca 45, Pančevo 26000</p>
+                    <p>📞 +381 13 123-456</p>
+                    <p>✉️ info@pcwizerd.rs</p>
+                    <p>🕒 Mon-Fri: 9AM-6PM, Sat: 9AM-3PM</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 PcWizerd. All rights reserved. | Professional computer services in Pančevo</p>
+                <p>VIRALIUM E-MARKETING</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Professional product data
+        const products = [
+            {
+                id: 'gaming-pc',
+                name: 'Performance Gaming PC',
+                category: 'desktops',
+                price: '$1,899',
+                description: 'High-performance gaming desktop with RTX 4070, AMD Ryzen 7 5800X, 32GB DDR4 RAM, and 1TB NVMe SSD.',
+                image: '🖥️',
+                status: 'Available',
+                specs: {
+                    'Processor': 'AMD Ryzen 7 5800X (8-core, 3.8GHz)',
+                    'Graphics': 'NVIDIA GeForce RTX 4070 (12GB)',
+                    'Memory': '32GB DDR4-3200 RAM',
+                    'Storage': '1TB NVMe SSD + 2TB HDD',
+                    'Motherboard': 'MSI B550 Gaming Plus',
+                    'Power Supply': '750W 80+ Gold Certified',
+                    'Case': 'Fractal Design Define 7',
+                    'Warranty': '2 years parts & labor'
+                }
+            },
+            {
+                id: 'business-laptop',
+                name: 'Professional Business Laptop',
+                category: 'laptops',
+                price: '$1,299',
+                description: 'Reliable business laptop with Intel Core i7, 16GB RAM, 512GB SSD, and enterprise security features.',
+                image: '💻',
+                status: 'Available',
+                specs: {
+                    'Processor': 'Intel Core i7-1260P (12-core)',
+                    'Memory': '16GB DDR4 RAM',
+                    'Storage': '512GB NVMe SSD',
+                    'Display': '15.6" Full HD IPS (1920x1080)',
+                    'Graphics': 'Intel Iris Xe Integrated',
+                    'Battery': 'Up to 10 hours',
+                    'Security': 'TPM 2.0, Fingerprint Reader',
+                    'Warranty': '3 years manufacturer warranty'
+                }
+            },
+            {
+                id: 'office-desktop',
+                name: 'Office Desktop Computer',
+                category: 'desktops',
+                price: '$699',
+                description: 'Reliable desktop computer perfect for office work, web browsing, and everyday computing tasks.',
+                image: '🖥️',
+                status: 'Available',
+                specs: {
+                    'Processor': 'Intel Core i5-12400 (6-core, 2.5GHz)',
+                    'Memory': '16GB DDR4 RAM',
+                    'Storage': '512GB NVMe SSD',
+                    'Graphics': 'Intel UHD Graphics 730',
+                    'Ports': 'USB 3.0, USB-C, HDMI, Ethernet',
+                    'Operating System': 'Windows 11 Pro',
+                    'Warranty': '1 year parts & labor'
+                }
+            },
+            {
+                id: 'student-laptop',
+                name: 'Student Laptop',
+                category: 'laptops',
+                price: '$599',
+                description: 'Affordable laptop perfect for students with good performance for schoolwork and light entertainment.',
+                image: '💻',
+                status: 'Available',
+                specs: {
+                    'Processor': 'Intel Core i5-1135G7',
+                    'Memory': '8GB DDR4 RAM',
+                    'Storage': '256GB NVMe SSD',
+                    'Display': '14" Full HD (1920x1080)',
+                    'Graphics': 'Intel Iris Xe Graphics',
+                    'Battery': 'Up to 8 hours',
+                    'Weight': '3.2 lbs',
+                    'Warranty': '1 year manufacturer warranty'
+                }
+            },
+            {
+                id: 'workstation-laptop',
+                name: 'Mobile Workstation',
+                category: 'laptops',
+                price: '$2,499',
+                description: 'High-end laptop for professionals who need desktop-class performance on the go.',
+                image: '💻',
+                status: 'Limited Stock',
+                specs: {
+                    'Processor': 'Intel Core i9-12900H (14-core)',
+                    'Memory': '32GB DDR5 RAM',
+                    'Storage': '1TB NVMe SSD',
+                    'Display': '17.3" 4K UHD (3840x2160)',
+                    'Graphics': 'NVIDIA RTX A3000 (12GB)',
+                    'Certification': 'ISV Certified Applications',
+                    'Warranty': '3 years on-site service'
+                }
+            },
+            {
+                id: 'graphics-card',
+                name: 'NVIDIA RTX 4070 Graphics Card',
+                category: 'components',
+                price: '$599',
+                description: 'High-performance graphics card perfect for gaming and content creation with ray tracing support.',
+                image: '🎮',
+                status: 'Available',
+                specs: {
+                    'GPU': 'NVIDIA GeForce RTX 4070',
+                    'Memory': '12GB GDDR6X',
+                    'Memory Bus': '192-bit',
+                    'Base Clock': '1920 MHz',
+                    'Boost Clock': '2475 MHz',
+                    'Power Consumption': '200W',
+                    'Outputs': '3x DisplayPort, 1x HDMI',
+                    'Warranty': '3 years manufacturer warranty'
+                }
+            },
+            {
+                id: 'ssd-drive',
+                name: '1TB NVMe SSD',
+                category: 'components',
+                price: '$149',
+                description: 'High-speed NVMe SSD for faster boot times and application loading. Perfect upgrade for any computer.',
+                image: '💿',
+                status: 'Available',
+                specs: {
+                    'Capacity': '1TB',
+                    'Interface': 'NVMe PCIe 3.0 x4',
+                    'Form Factor': 'M.2 2280',
+                    'Read Speed': 'Up to 3,500 MB/s',
+                    'Write Speed': 'Up to 3,000 MB/s',
+                    'Endurance': '600 TBW',
+                    'Warranty': '5 years manufacturer warranty'
+                }
+            },
+            {
+                id: 'gaming-keyboard',
+                name: 'Mechanical Gaming Keyboard',
+                category: 'accessories',
+                price: '$129',
+                description: 'Professional mechanical keyboard with Cherry MX switches and RGB backlighting.',
+                image: '⌨️',
+                status: 'Available',
+                specs: {
+                    'Switch Type': 'Cherry MX Red/Blue/Brown',
+                    'Backlighting': 'Per-key RGB',
+                    'Layout': 'Full-size (104 keys)',
+                    'Connection': 'USB-C with braided cable',
+                    'Features': 'N-key rollover, macro support',
+                    'Compatibility': 'Windows, Mac, Linux',
+                    'Warranty': '2 years manufacturer warranty'
+                }
+            },
+            {
+                id: 'wireless-mouse',
+                name: 'Wireless Gaming Mouse',
+                category: 'accessories',
+                price: '$79',
+                description: 'High-precision wireless gaming mouse with long battery life and customizable buttons.',
+                image: '🖱️',
+                status: 'Available',
+                specs: {
+                    'Sensor': 'PixArt PMW3360',
+                    'DPI': 'Up to 12,000 DPI',
+                    'Buttons': '8 programmable buttons',
+                    'Battery Life': 'Up to 70 hours',
+                    'Connectivity': '2.4GHz wireless + USB-C charging',
+                    'Weight': '95 grams',
+                    'Warranty': '2 years manufacturer warranty'
+                }
+            },
+            {
+                id: 'monitor-24inch',
+                name: '24" Full HD Monitor',
+                category: 'accessories',
+                price: '$199',
+                description: 'Professional 24-inch monitor perfect for office work and general computing with excellent color accuracy.',
+                image: '🖥️',
+                status: 'Available',
+                specs: {
+                    'Size': '24 inches',
+                    'Resolution': '1920 x 1080 (Full HD)',
+                    'Panel Type': 'IPS',
+                    'Refresh Rate': '75Hz',
+                    'Response Time': '5ms',
+                    'Connectivity': 'HDMI, DisplayPort, VGA',
+                    'Stand': 'Height adjustable with tilt',
+                    'Warranty': '3 years manufacturer warranty'
+                }
+            }
+        ];
+
+        // Page navigation
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+                
+                if (pageId === 'products') {
+                    loadProducts();
+                }
+                
+                window.scrollTo(0, 0);
+            }, 150);
+            
+            document.getElementById('navMenu').classList.remove('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Load products
+        function loadProducts(filteredProducts = products) {
+            const productGrid = document.getElementById('productGrid');
+            if (!productGrid) return;
+            
+            productGrid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.onclick = () => openProductModal(product.id);
+                
+                const statusClass = product.status === 'Available' ? 'status-available' : 'status-limited';
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        ${product.image}
+                        <div class="product-status ${statusClass}">${product.status}</div>
+                    </div>
+                    <div class="product-content">
+                        <div class="product-category">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</div>
+                        <div class="product-title">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">${product.price}</div>
+                    </div>
+                `;
+                
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            let filteredProducts = products;
+            if (category !== 'all') {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            showPage('products');
+            setTimeout(() => loadProducts(filteredProducts), 300);
+        }
+
+        // Search products
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.category.toLowerCase().includes(searchTerm)
+            );
+            
+            loadProducts(filteredProducts);
+        }
+
+        // Open product modal
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                    <div>
+                        <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.5rem;">${product.name}</h2>
+                        <div style="color: var(--text-secondary); margin-bottom: 1rem;">${product.category.charAt(0).toUpperCase() + product.category.slice(1)}</div>
+                        <div style="font-size: 1.5rem; font-weight: bold; color: var(--success-green);">${product.price}</div>
+                    </div>
+                    <div style="font-size: 3rem;">${product.image}</div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; line-height: 1.6;">${product.description}</p>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--text-primary); margin-bottom: 1rem; font-size: 1.2rem;">Specifications</h3>
+                    <div style="background: var(--light-gray); padding: 1.5rem; border-radius: 8px;">
+                        ${Object.entries(product.specs).map(([key, value]) => 
+                            `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-light);">
+                                <strong style="color: var(--text-primary);">${key}:</strong> 
+                                <span style="color: var(--text-secondary);">${value}</span>
+                            </div>`
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <a href="#" onclick="showPage('contact')" class="btn btn-primary" style="margin-right: 1rem;">Contact for Purchase</a>
+                    <button onclick="closeProductModal()" class="btn btn-secondary">Close</button>
+                </div>
+            `;
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close product modal
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Handle escape key for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>

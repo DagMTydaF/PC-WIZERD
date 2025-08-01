@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC Wizerd - Your Technology Partner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+        }
+
+        .nav-menu a:hover {
+            background: rgba(255,255,255,0.1);
+            color: #60a5fa;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #60a5fa, #34d399);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #60a5fa;
+        }
+
+        .btn-secondary:hover {
+            background: #60a5fa;
+            color: #0f172a;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+
+        /* Featured Products */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #f1f5f9, #e2e8f0);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #64748b;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .product-description {
+            color: #64748b;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #059669;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .category-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+
+        .category-count {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #3b82f6;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+
+        .service-description {
+            color: #64748b;
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .service-price {
+            font-weight: bold;
+            color: #059669;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #60a5fa;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .footer-section a:hover {
+            color: #60a5fa;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+
+        /* Product Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            margin: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        /* Contact Section */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #1e293b;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .featured-grid,
+            .categories-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Search & Filter */
+        .search-filters {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">🧙‍♂️ PC Wizerd</div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('catalog')">Products</a></li>
+                    <li><a href="#" onclick="showPage('services')">Services</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Your Technology Partner</h1>
+                <p>Discover premium computers, components, and expert services at PC Wizerd. From laptops to custom builds, we've got your tech needs covered.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="showPage('catalog')">Browse Products</a>
+                    <a href="#" class="btn btn-secondary" onclick="showPage('contact')">Visit Our Shop</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Featured Products</h2>
+                <div class="featured-grid">
+                    <div class="product-card" onclick="openProductModal('gaming-laptop')">
+                        <div class="product-image">💻</div>
+                        <div class="product-title">Gaming Laptop ASUS ROG</div>
+                        <div class="product-description">High-performance gaming laptop with RTX graphics and Intel i7 processor</div>
+                        <div class="product-price">From 120,000 RSD</div>
+                        <div class="product-tags">
+                            <span class="tag">Gaming</span>
+                            <span class="tag">Laptop</span>
+                            <span class="tag">RTX</span>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="openProductModal('desktop-pc')">
+                        <div class="product-image">🖥️</div>
+                        <div class="product-title">Custom Desktop PC</div>
+                        <div class="product-description">Build your perfect workstation with premium components</div>
+                        <div class="product-price">Call for Quote</div>
+                        <div class="product-tags">
+                            <span class="tag">Custom</span>
+                            <span class="tag">Desktop</span>
+                            <span class="tag">Workstation</span>
+                        </div>
+                    </div>
+                    <div class="product-card" onclick="openProductModal('accessories')">
+                        <div class="product-image">⌨️</div>
+                        <div class="product-title">Gaming Peripherals</div>
+                        <div class="product-description">Mechanical keyboards, gaming mice, and headsets</div>
+                        <div class="product-price">From 5,000 RSD</div>
+                        <div class="product-tags">
+                            <span class="tag">Accessories</span>
+                            <span class="tag">Gaming</span>
+                            <span class="tag">Peripherals</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Top Categories -->
+        <section class="section" style="background: white;">
+            <div class="container">
+                <h2 class="section-title">Shop by Category</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterProducts('laptops')">
+                        <div class="category-icon">💻</div>
+                        <div class="category-title">Laptops</div>
+                        <div class="category-count">25+ products</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('components')">
+                        <div class="category-icon">🔧</div>
+                        <div class="category-title">PC Components</div>
+                        <div class="category-count">50+ products</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('accessories')">
+                        <div class="category-icon">⌨️</div>
+                        <div class="category-title">Accessories</div>
+                        <div class="category-count">30+ products</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('refurbished')">
+                        <div class="category-icon">♻️</div>
+                        <div class="category-title">Refurbished PCs</div>
+                        <div class="category-count">15+ products</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Services Preview -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <div class="service-title">PC Repair & Diagnostics</div>
+                        <div class="service-description">Complete hardware and software troubleshooting and repair services</div>
+                        <div class="service-price">From 2,000 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <div class="service-title">Hardware Upgrades</div>
+                        <div class="service-description">RAM, SSD, GPU upgrades to boost your system performance</div>
+                        <div class="service-price">From 1,500 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💿</div>
+                        <div class="service-title">OS Installation</div>
+                        <div class="service-description">Windows, Linux installation and setup with drivers</div>
+                        <div class="service-price">From 3,000 RSD</div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" class="btn btn-primary" onclick="showPage('services')">View All Services</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Catalog Page -->
+    <div id="catalog" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">Product Catalog</h2>
+                
+                <!-- Search & Filters -->
+                <div class="search-filters">
+                    <input type="text" class="search-bar" placeholder="Search products..." id="searchInput" onkeyup="searchProducts()">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterProducts('all')">All Products</button>
+                        <button class="filter-btn" onclick="filterProducts('laptops')">Laptops</button>
+                        <button class="filter-btn" onclick="filterProducts('components')">Components</button>
+                        <button class="filter-btn" onclick="filterProducts('accessories')">Accessories</button>
+                        <button class="filter-btn" onclick="filterProducts('refurbished')">Refurbished</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="featured-grid" id="productGrid">
+                    <!-- Products will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">🔧</div>
+                        <div class="service-title">Laptop & PC Service</div>
+                        <div class="service-description">Complete hardware diagnostics, repair, and maintenance for all brands of laptops and desktop computers</div>
+                        <div class="service-price">From 2,000 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔍</div>
+                        <div class="service-title">System Diagnostics</div>
+                        <div class="service-description">Professional hardware and software diagnostics to identify and resolve system issues</div>
+                        <div class="service-price">From 1,500 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🧹</div>
+                        <div class="service-title">Deep Cleaning</div>
+                        <div class="service-description">Thorough cleaning of internal components, fans, and heat sinks to improve performance</div>
+                        <div class="service-price">From 2,500 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">⚡</div>
+                        <div class="service-title">Hardware Upgrades</div>
+                        <div class="service-description">RAM, SSD, GPU, and other component upgrades to boost system performance</div>
+                        <div class="service-price">From 1,500 RSD + parts</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💿</div>
+                        <div class="service-title">OS Installation</div>
+                        <div class="service-description">Windows, Linux installation and setup with all necessary drivers and software</div>
+                        <div class="service-price">From 3,000 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <div class="service-title">Virus Removal</div>
+                        <div class="service-description">Complete malware removal and system security setup</div>
+                        <div class="service-price">From 2,000 RSD</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">💾</div>
+                        <div class="service-title">Data Recovery</div>
+                        <div class="service-description">Professional data recovery from damaged hard drives and storage devices</div>
+                        <div class="service-price">Call for Quote</div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-icon">🔄</div>
+                        <div class="service-title">System Backup</div>
+                        <div class="service-description">Complete system backup and restore solutions to protect your data</div>
+                        <div class="service-price">From 2,500 RSD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">About PC Wizerd</h2>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem; color: #64748b;">
+                        Welcome to PC Wizerd, your trusted technology partner in Serbia. We specialize in providing high-quality computers, components, and expert technical services to meet all your computing needs.
+                    </p>
+                    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem; color: #64748b;">
+                        Our mission is to deliver exceptional value through premium products, professional services, and personalized customer support. Whether you're a gamer, professional, or everyday user, we have the expertise and products to help you succeed.
+                    </p>
+                    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 3rem;">
+                        <h3 style="color: #1e293b; margin-bottom: 1rem;">Why Choose PC Wizerd?</h3>
+                        <ul style="text-align: left; color: #64748b; line-height: 1.8;">
+                            <li>Expert technical knowledge and experience</li>
+                            <li>Premium quality products from trusted brands</li>
+                            <li>Competitive pricing and value for money</li>
+                            <li>Professional repair and upgrade services</li>
+                            <li>Personalized customer support</li>
+                            <li>Warranty and after-sales service</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Visit Our Shop</h3>
+                        <p>Your Address Here<br>City, Serbia</p>
+                        <p style="color: #3b82f6; margin-top: 1rem;">Monday - Friday: 9:00 - 18:00<br>Saturday: 9:00 - 15:00</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <h3>Call Us</h3>
+                        <p><strong>+381 XX XXX XXX</strong></p>
+                        <p style="color: #64748b;">For sales and support</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <h3>Email Us</h3>
+                        <p><strong>info@pcwizard.rs</strong></p>
+                        <p style="color: #64748b;">We'll respond within 24 hours</p>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center;">
+                    <h3 style="margin-bottom: 1rem; color: #1e293b;">Quick Contact</h3>
+                    <p style="color: #64748b; margin-bottom: 2rem;">Have a question? Send us a message and we'll get back to you soon!</p>
+                    <div class="cta-buttons">
+                        <a href="tel:+381xxxxxxxxx" class="btn btn-primary">📞 Call Now</a>
+                        <a href="mailto:info@pcwizard.rs" class="btn btn-secondary">✉️ Send Email</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">×</button>
+            <div id="modalContent">
+                <!-- Modal content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>🧙‍♂️ PC Wizerd</h3>
+                <p>Your trusted technology partner in Serbia. Quality products, expert services, and exceptional support.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#" onclick="showPage('home')">Home</a>
+                <a href="#" onclick="showPage('catalog')">Products</a>
+                <a href="#" onclick="showPage('services')">Services</a>
+                <a href="#" onclick="showPage('about')">About</a>
+                <a href="#" onclick="showPage('contact')">Contact</a>
+            </div>
+            <div class="footer-section">
+                <h3>Categories</h3>
+                <a href="#" onclick="filterProducts('laptops')">Laptops</a>
+                <a href="#" onclick="filterProducts('components')">PC Components</a>
+                <a href="#" onclick="filterProducts('accessories')">Accessories</a>
+                <a href="#" onclick="filterProducts('refurbished')">Refurbished PCs</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>📍 Your Address Here, City</p>
+                <p>📞 +381 XX XXX XXX</p>
+                <p>✉️ info@pcwizard.rs</p>
+                <p>🕒 Mon-Fri: 9:00-18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PC Wizerd. All rights reserved. | Built with ❤️ for technology enthusiasts</p>
+            <p>VIRALIUM E-MARKETING</p>
+        </div>
+    </footer>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 'gaming-laptop-1',
+                name: 'ASUS ROG Strix G15',
+                category: 'laptops',
+                price: '125,000 RSD',
+                description: 'Gaming laptop with AMD Ryzen 7, RTX 3060, 16GB RAM, 512GB SSD',
+                image: '💻',
+                tags: ['Gaming', 'Laptop', 'RTX', 'AMD'],
+                specs: {
+                    'Processor': 'AMD Ryzen 7 5800H',
+                    'Graphics': 'NVIDIA RTX 3060 6GB',
+                    'RAM': '16GB DDR4',
+                    'Storage': '512GB NVMe SSD',
+                    'Display': '15.6" FHD 144Hz'
+                }
+            },
+            {
+                id: 'gaming-laptop-2',
+                name: 'MSI Gaming Laptop',
+                category: 'laptops',
+                price: '110,000 RSD',
+                description: 'High-performance gaming laptop with Intel i7 and RTX graphics',
+                image: '💻',
+                tags: ['Gaming', 'Laptop', 'Intel', 'RTX'],
+                specs: {
+                    'Processor': 'Intel Core i7-11800H',
+                    'Graphics': 'NVIDIA RTX 3050 Ti',
+                    'RAM': '16GB DDR4',
+                    'Storage': '512GB SSD',
+                    'Display': '15.6" FHD 120Hz'
+                }
+            },
+            {
+                id: 'business-laptop',
+                name: 'Lenovo ThinkPad E15',
+                category: 'laptops',
+                price: '85,000 RSD',
+                description: 'Professional business laptop with Intel i5 processor',
+                image: '💼',
+                tags: ['Business', 'Laptop', 'Intel', 'Professional'],
+                specs: {
+                    'Processor': 'Intel Core i5-1135G7',
+                    'Graphics': 'Intel Iris Xe',
+                    'RAM': '8GB DDR4',
+                    'Storage': '256GB SSD',
+                    'Display': '15.6" FHD'
+                }
+            },
+            {
+                id: 'gpu-rtx4070',
+                name: 'NVIDIA RTX 4070',
+                category: 'components',
+                price: '95,000 RSD',
+                description: 'High-end graphics card for gaming and content creation',
+                image: '🎮',
+                tags: ['GPU', 'Gaming', 'RTX', '4K'],
+                specs: {
+                    'Memory': '12GB GDDR6X',
+                    'Base Clock': '1920 MHz',
+                    'Boost Clock': '2475 MHz',
+                    'Ray Tracing': 'Yes',
+                    'DLSS': '3.0'
+                }
+            },
+            {
+                id: 'cpu-amd-ryzen7',
+                name: 'AMD Ryzen 7 5800X',
+                category: 'components',
+                price: '45,000 RSD',
+                description: '8-core, 16-thread processor for high-performance computing',
+                image: '🔧',
+                tags: ['CPU', 'AMD', 'Gaming', 'Workstation'],
+                specs: {
+                    'Cores': '8',
+                    'Threads': '16',
+                    'Base Clock': '3.8 GHz',
+                    'Boost Clock': '4.7 GHz',
+                    'Cache': '32MB L3'
+                }
+            },
+            {
+                id: 'motherboard-b550',
+                name: 'ASUS B550-F Gaming',
+                category: 'components',
+                price: '25,000 RSD',
+                description: 'Feature-rich motherboard with PCIe 4.0 support',
+                image: '🔧',
+                tags: ['Motherboard', 'Gaming', 'PCIe 4.0', 'WiFi'],
+                specs: {
+                    'Socket': 'AM4',
+                    'Chipset': 'AMD B550',
+                    'RAM Support': 'DDR4-4400',
+                    'PCIe': '4.0 x16',
+                    'WiFi': '802.11ax'
+                }
+            },
+            {
+                id: 'ram-32gb',
+                name: 'Corsair Vengeance 32GB',
+                category: 'components',
+                price: '18,000 RSD',
+                description: 'High-speed DDR4 RAM kit for gaming and productivity',
+                image: '💾',
+                tags: ['RAM', 'DDR4', 'Gaming', 'High-Speed'],
+                specs: {
+                    'Capacity': '32GB (2x16GB)',
+                    'Type': 'DDR4',
+                    'Speed': '3200 MHz',
+                    'Latency': 'CL16',
+                    'Voltage': '1.35V'
+                }
+            },
+            {
+                id: 'ssd-1tb',
+                name: 'Samsung 970 EVO 1TB',
+                category: 'components',
+                price: '15,000 RSD',
+                description: 'High-performance NVMe SSD for fast boot and load times',
+                image: '💿',
+                tags: ['SSD', 'NVMe', 'Fast', '1TB'],
+                specs: {
+                    'Capacity': '1TB',
+                    'Interface': 'NVMe PCIe 3.0',
+                    'Read Speed': '3,500 MB/s',
+                    'Write Speed': '3,300 MB/s',
+                    'Form Factor': 'M.2 2280'
+                }
+            },
+            {
+                id: 'keyboard-mechanical',
+                name: 'Razer BlackWidow V3',
+                category: 'accessories',
+                price: '12,000 RSD',
+                description: 'Mechanical gaming keyboard with RGB lighting',
+                image: '⌨️',
+                tags: ['Keyboard', 'Mechanical', 'RGB', 'Gaming'],
+                specs: {
+                    'Switch Type': 'Razer Green',
+                    'Backlighting': 'RGB Chroma',
+                    'Layout': 'Full Size',
+                    'Features': 'Macro Support',
+                    'Connection': 'USB-C'
+                }
+            },
+            {
+                id: 'mouse-gaming',
+                name: 'Logitech G502 HERO',
+                category: 'accessories',
+                price: '8,500 RSD',
+                description: 'High-precision gaming mouse with customizable weights',
+                image: '🖱️',
+                tags: ['Mouse', 'Gaming', 'RGB', 'Precision'],
+                specs: {
+                    'DPI': 'Up to 25,600',
+                    'Sensor': 'HERO 25K',
+                    'Buttons': '11 Programmable',
+                    'Weight': 'Adjustable',
+                    'RGB': 'Yes'
+                }
+            },
+            {
+                id: 'headset-gaming',
+                name: 'SteelSeries Arctis 7',
+                category: 'accessories',
+                price: '18,000 RSD',
+                description: 'Wireless gaming headset with 7.1 surround sound',
+                image: '🎧',
+                tags: ['Headset', 'Wireless', 'Gaming', '7.1'],
+                specs: {
+                    'Connection': '2.4GHz Wireless',
+                    'Battery': '24 hours',
+                    'Microphone': 'Retractable',
+                    'Sound': '7.1 Surround',
+                    'Platform': 'Multi-platform'
+                }
+            },
+            {
+                id: 'monitor-gaming',
+                name: 'ASUS TUF Gaming 27"',
+                category: 'accessories',
+                price: '45,000 RSD',
+                description: '27-inch gaming monitor with 144Hz refresh rate',
+                image: '🖥️',
+                tags: ['Monitor', 'Gaming', '144Hz', '1440p'],
+                specs: {
+                    'Size': '27 inches',
+                    'Resolution': '2560x1440',
+                    'Refresh Rate': '144Hz',
+                    'Panel': 'IPS',
+                    'Response Time': '1ms'
+                }
+            },
+            {
+                id: 'refurb-desktop-1',
+                name: 'Refurbished Office PC',
+                category: 'refurbished',
+                price: '25,000 RSD',
+                description: 'Professionally refurbished desktop PC for office use',
+                image: '♻️',
+                tags: ['Refurbished', 'Office', 'Desktop', 'Budget'],
+                specs: {
+                    'Processor': 'Intel Core i5-8400',
+                    'RAM': '8GB DDR4',
+                    'Storage': '256GB SSD',
+                    'Graphics': 'Intel UHD 630',
+                    'Condition': 'Grade A'
+                }
+            },
+            {
+                id: 'refurb-laptop-1',
+                name: 'Refurbished ThinkPad',
+                category: 'refurbished',
+                price: '35,000 RSD',
+                description: 'Professional-grade refurbished laptop in excellent condition',
+                image: '♻️',
+                tags: ['Refurbished', 'Laptop', 'Business', 'ThinkPad'],
+                specs: {
+                    'Processor': 'Intel Core i7-8650U',
+                    'RAM': '16GB DDR4',
+                    'Storage': '512GB SSD',
+                    'Display': '14" FHD',
+                    'Condition': 'Grade A+'
+                }
+            }
+        ];
+
+        // Page navigation
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update active nav item
+            const navItems = document.querySelectorAll('.nav-menu a');
+            navItems.forEach(item => item.style.color = 'white');
+            
+            // Close mobile menu if open
+            document.getElementById('navMenu').classList.remove('active');
+            
+            // Load products if catalog page
+            if (pageId === 'catalog') {
+                loadProducts();
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Load products into catalog
+        function loadProducts(filteredProducts = products) {
+            const productGrid = document.getElementById('productGrid');
+            if (!productGrid) return;
+            
+            productGrid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card animate-fade-in';
+                productCard.onclick = () => openProductModal(product.id);
+                
+                productCard.innerHTML = `
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-price">${product.price}</div>
+                    <div class="product-tags">
+                        ${product.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                `;
+                
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            // Update filter button styles
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter products
+            let filteredProducts = products;
+            if (category !== 'all') {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            // Show catalog page and load filtered products
+            showPage('catalog');
+            loadProducts(filteredProducts);
+        }
+
+        // Search products
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+            );
+            
+            loadProducts(filteredProducts);
+        }
+
+        // Open product modal
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div class="product-image" style="width: 100%; height: 250px; margin-bottom: 2rem;">${product.image}</div>
+                <h2 style="color: #1e293b; margin-bottom: 1rem;">${product.name}</h2>
+                <p style="color: #64748b; margin-bottom: 1.5rem; font-size: 1.1rem;">${product.description}</p>
+                <div style="font-size: 1.5rem; font-weight: bold; color: #059669; margin-bottom: 2rem;">${product.price}</div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: #1e293b; margin-bottom: 1rem;">Technical Specifications</h3>
+                    <div style="background: #f8fafc; padding: 1.5rem; border-radius: 8px;">
+                        ${Object.entries(product.specs).map(([key, value]) => 
+                            `<div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #e2e8f0;">
+                                <strong>${key}:</strong> <span>${value}</span>
+                            </div>`
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        ${product.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <a href="#" onclick="showPage('contact')" class="btn btn-primary" style="margin-right: 1rem;">Contact for Purchase</a>
+                    <button onclick="closeProductModal()" class="btn btn-secondary">Close</button>
+                </div>
+            `;
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close product modal
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Initialize with home page
+            showPage('home');
+        });
+
+        // Handle escape key for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards
+            const cards = document.querySelectorAll('.product-card, .service-card, .category-card, .contact-card');
+            cards.forEach(card => observer.observe(card));
+        });
+    </script>
+</body>
+</html>

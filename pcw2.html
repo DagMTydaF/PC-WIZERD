@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC WIZERD // TECH.SYSTEMS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+        
+        :root {
+            --primary-cyan: #00ffff;
+            --primary-purple: #8b5cf6;
+            --primary-green: #00ff41;
+            --primary-orange: #ff6b35;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #050505;
+            --card-bg: rgba(15, 15, 15, 0.9);
+            --border-glow: rgba(0, 255, 255, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-accent: #00ffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--dark-bg);
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(0, 255, 65, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes grid-move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary-cyan), var(--primary-purple));
+            border-radius: 4px;
+        }
+
+        /* Header & Navigation */
+        .header {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-cyan), var(--primary-purple), transparent);
+            animation: scan-line 3s linear infinite;
+        }
+
+        @keyframes scan-line {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+        }
+
+        .logo::before {
+            content: '◉';
+            color: var(--primary-cyan);
+            margin-right: 10px;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+            animation: logo-scan 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 5px var(--primary-cyan); }
+            50% { text-shadow: 0 0 20px var(--primary-cyan), 0 0 30px var(--primary-cyan); }
+        }
+
+        @keyframes logo-scan {
+            0%, 100% { transform: scaleX(0); }
+            50% { transform: scaleX(1); }
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0.5rem;
+        }
+
+        .nav-menu a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            border: 1px solid transparent;
+            font-size: 0.9rem;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-menu a:hover::before {
+            opacity: 1;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-cyan);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+            text-shadow: 0 0 10px var(--primary-cyan);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            font-size: 1.2rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            padding: 8rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 70% 70%, rgba(0, 255, 255, 0.2) 0%, transparent 50%);
+            animation: hero-glow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes hero-glow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 4.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-purple) 50%, var(--primary-green) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            animation: title-glitch 3s ease-in-out infinite;
+        }
+
+        @keyframes title-glitch {
+            0%, 98% { transform: translateX(0); }
+            99% { transform: translateX(2px); }
+            100% { transform: translateX(-2px); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1.2rem 2.5rem;
+            border: 2px solid;
+            background: transparent;
+            border-radius: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'JetBrains Mono', monospace;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.5);
+            text-shadow: none;
+        }
+
+        .btn-secondary {
+            border-color: var(--primary-purple);
+            color: var(--primary-purple);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-purple);
+            color: var(--text-primary);
+            box-shadow: 0 0 25px rgba(139, 92, 246, 0.5);
+        }
+
+        /* Tech Stats */
+        .tech-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple));
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-cyan);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', monospace;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '[ ';
+            color: var(--primary-cyan);
+        }
+
+        .section-title::after {
+            content: ' ]';
+            color: var(--primary-cyan);
+        }
+
+        .section-title .tech-accent {
+            color: var(--primary-green);
+            font-weight: 900;
+        }
+
+        /* Product Grid */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple), var(--primary-green));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-id {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-status {
+            padding: 0.25rem 0.75rem;
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid var(--primary-green);
+            color: var(--primary-green);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(15, 15, 15, 0.8) 0%, rgba(25, 25, 25, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .product-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .product-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-tag {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid var(--primary-purple);
+            color: var(--primary-purple);
+            padding: 0.25rem 0.75rem;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .product-price {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Categories */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.05), rgba(139, 92, 246, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            opacity: 1;
+        }
+
+        .category-card:hover {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .category-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-cyan);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .category-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-count {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .category-count .number {
+            color: var(--primary-green);
+            font-weight: bold;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-green), var(--primary-cyan));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            border-color: var(--primary-green);
+            box-shadow: 0 10px 40px rgba(0, 255, 65, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+        }
+
+        .service-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+        }
+
+        .service-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .service-price {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--darker-bg);
+            border-top: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 4rem 0 2rem;
+            margin-top: 5rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-purple), var(--primary-green));
+            animation: footer-scan 4s linear infinite;
+        }
+
+        @keyframes footer-scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .footer-section p, .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 0.75rem;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 400;
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-cyan);
+            text-shadow: 0 0 10px var(--primary-cyan);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 3rem;
+            max-width: 700px;
+            max-height: 85vh;
+            overflow-y: auto;
+            margin: 2rem;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            width: 40px;
+            height: 40px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .modal-close:hover {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 15px var(--primary-cyan);
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .contact-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .contact-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-cyan), var(--primary-green));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .contact-card:hover {
+            border-color: var(--primary-cyan);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            color: var(--primary-cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Search & Filter */
+        .search-filters {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glow);
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-glow);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .search-bar::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            border: 1px solid var(--border-glow);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--primary-cyan);
+            color: var(--primary-cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-cyan);
+            color: var(--dark-bg);
+            border-color: var(--primary-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Page Navigation */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Terminal-style elements */
+        .terminal-window {
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid var(--primary-green);
+            padding: 1rem;
+            margin: 2rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--primary-green);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-right: 1rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ff5f56; }
+        .terminal-dot.yellow { background: #ffbd2e; }
+        .terminal-dot.green { background: #27ca3f; }
+
+        .terminal-title {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+        }
+
+        .terminal-content {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .terminal-prompt::before {
+            content: '$ ';
+            color: var(--primary-cyan);
+        }
+
+        /* Loading animation */
+        .loading-dots::after {
+            content: '';
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+            100% { content: ''; }
+        }
+
+        /* Matrix-style background */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -2;
+            opacity: 0.1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--darker-bg);
+                flex-direction: column;
+                padding: 1rem;
+                border-top: 1px solid var(--border-glow);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .featured-grid,
+            .categories-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+                padding: 2rem;
+            }
+
+            .tech-stats {
+                gap: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Special effects */
+        .glitch {
+            position: relative;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .glitch::before {
+            animation: glitch-1 0.5s infinite;
+            color: var(--primary-cyan);
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-2 0.5s infinite;
+            color: var(--primary-purple);
+            z-index: -2;
+        }
+
+        @keyframes glitch-1 {
+            0%, 14%, 15%, 49%, 50%, 99%, 100% {
+                transform: translate(0);
+            }
+            15%, 49% {
+                transform: translate(-2px, -1px);
+            }
+        }
+
+        @keyframes glitch-2 {
+            0%, 20%, 21%, 62%, 63%, 99%, 100% {
+                transform: translate(0);
+            }
+            21%, 62% {
+                transform: translate(2px, 1px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Matrix Background Effect -->
+    <div class="matrix-bg" id="matrixBg"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <div class="logo">PC WIZERD</div>
+            <nav>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#" onclick="showPage('home')">[HOME]</a></li>
+                    <li><a href="#" onclick="showPage('catalog')">[CATALOG]</a></li>
+                    <li><a href="#" onclick="showPage('services')">[SERVICES]</a></li>
+                    <li><a href="#" onclick="showPage('about')">[ABOUT]</a></li>
+                    <li><a href="#" onclick="showPage('contact')">[CONTACT]</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">[≡]</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <div class="hero-subtitle">SYSTEM.STATUS: ONLINE</div>
+                <h1 class="hero-title glitch" data-text="TECH SYSTEMS">TECH SYSTEMS</h1>
+                <p>Advanced computing solutions // Premium hardware // Expert diagnostics // Your digital arsenal awaits deployment</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary" onclick="showPage('catalog')">ACCESS_CATALOG</a>
+                    <a href="#" class="btn btn-secondary" onclick="showPage('contact')">INITIATE_CONTACT</a>
+                </div>
+                
+                <!-- Tech Stats -->
+                <div class="tech-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">500+</span>
+                        <span class="stat-label">SYSTEMS_DEPLOYED</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">SUPPORT_ACTIVE</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">UPTIME_RATE</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Products -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">FEATURED</span> SYSTEMS ]</h2>
+                <div class="featured-grid">
+                    <div class="product-card" onclick="openProductModal('gaming-rig-alpha')">
+                        <div class="product-header">
+                            <div class="product-id">SYS-001-ALPHA</div>
+                            <div class="product-status">AVAILABLE</div>
+                        </div>
+                        <div class="product-image">🔥</div>
+                        <div class="product-title">GAMING RIG ALPHA</div>
+                        <div class="product-description">High-performance battle station with RTX 4070 graphics core and AMD Ryzen 7 processor. Optimized for maximum frame rates and competitive gaming.</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">RTX 4070</span>
+                            <span class="spec-tag">RYZEN 7</span>
+                            <span class="spec-tag">32GB RAM</span>
+                        </div>
+                        <div class="product-price">125,000 RSD</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openProductModal('workstation-pro')">
+                        <div class="product-header">
+                            <div class="product-id">SYS-002-PRO</div>
+                            <div class="product-status">CUSTOM</div>
+                        </div>
+                        <div class="product-image">⚡</div>
+                        <div class="product-title">WORKSTATION PRO</div>
+                        <div class="product-description">Professional-grade workstation engineered for content creation, 3D rendering, and intensive computational tasks.</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">CUSTOM BUILD</span>
+                            <span class="spec-tag">ENTERPRISE</span>
+                            <span class="spec-tag">64GB RAM</span>
+                        </div>
+                        <div class="product-price">QUERY_REQUIRED</div>
+                    </div>
+                    
+                    <div class="product-card" onclick="openProductModal('peripheral-kit')">
+                        <div class="product-header">
+                            <div class="product-id">KIT-003-PERF</div>
+                            <div class="product-status">IN_STOCK</div>
+                        </div>
+                        <div class="product-image">⌨️</div>
+                        <div class="product-title">PERFORMANCE KIT</div>
+                        <div class="product-description">Complete peripheral arsenal: mechanical keyboard, precision mouse, surround headset. Engineered for competitive advantage.</div>
+                        <div class="product-specs">
+                            <span class="spec-tag">MECHANICAL</span>
+                            <span class="spec-tag">RGB</span>
+                            <span class="spec-tag">WIRELESS</span>
+                        </div>
+                        <div class="product-price">FROM 15,000 RSD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">HARDWARE</span> CATEGORIES ]</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterProducts('laptops')">
+                        <div class="category-icon">💻</div>
+                        <div class="category-title">MOBILE SYSTEMS</div>
+                        <div class="category-count"><span class="number">25+</span> UNITS_AVAILABLE</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('components')">
+                        <div class="category-icon">🔧</div>
+                        <div class="category-title">CORE COMPONENTS</div>
+                        <div class="category-count"><span class="number">50+</span> PARTS_INVENTORY</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('accessories')">
+                        <div class="category-icon">⌨️</div>
+                        <div class="category-title">PERIPHERALS</div>
+                        <div class="category-count"><span class="number">30+</span> DEVICES_READY</div>
+                    </div>
+                    <div class="category-card" onclick="filterProducts('refurbished')">
+                        <div class="category-icon">♻️</div>
+                        <div class="category-title">REFURB SYSTEMS</div>
+                        <div class="category-count"><span class="number">15+</span> UNITS_CERTIFIED</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Preview -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">TECHNICAL</span> SERVICES ]</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🔧</div>
+                            <div class="service-code">SVC-001</div>
+                        </div>
+                        <div class="service-title">SYSTEM DIAGNOSTICS</div>
+                        <div class="service-description">Complete hardware and software analysis using advanced diagnostic protocols. Identify bottlenecks, failures, and optimization opportunities.</div>
+                        <div class="service-price">FROM 2,000 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">⚡</div>
+                            <div class="service-code">SVC-002</div>
+                        </div>
+                        <div class="service-title">HARDWARE UPGRADES</div>
+                        <div class="service-description">Performance enhancement through strategic component upgrades. RAM expansion, SSD migration, GPU installation with optimization.</div>
+                        <div class="service-price">FROM 1,500 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">💿</div>
+                            <div class="service-code">SVC-003</div>
+                        </div>
+                        <div class="service-title">OS DEPLOYMENT</div>
+                        <div class="service-description">Clean operating system installation with driver optimization, security hardening, and performance tuning protocols.</div>
+                        <div class="service-price">FROM 3,000 RSD</div>
+                    </div>
+                </div>
+                
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <div class="terminal-title">services.log</div>
+                    </div>
+                    <div class="terminal-content">
+                        <div class="terminal-prompt">status --all-services</div>
+                        <div>✓ System diagnostics: OPERATIONAL</div>
+                        <div>✓ Hardware upgrades: OPERATIONAL</div>
+                        <div>✓ OS deployment: OPERATIONAL</div>
+                        <div>✓ Network configuration: OPERATIONAL</div>
+                        <div class="terminal-prompt">uptime</div>
+                        <div>Services online: 24/7/365 <span class="loading-dots"></span></div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem;">
+                    <a href="#" class="btn btn-primary" onclick="showPage('services')">ACCESS_ALL_SERVICES</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Catalog Page -->
+    <div id="catalog" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">PRODUCT</span> CATALOG ]</h2>
+                
+                <!-- Search & Filters -->
+                <div class="search-filters">
+                    <input type="text" class="search-bar" placeholder="SEARCH_PRODUCTS..." id="searchInput" onkeyup="searchProducts()">
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" onclick="filterProducts('all')">[ALL]</button>
+                        <button class="filter-btn" onclick="filterProducts('laptops')">[MOBILE]</button>
+                        <button class="filter-btn" onclick="filterProducts('components')">[COMPONENTS]</button>
+                        <button class="filter-btn" onclick="filterProducts('accessories')">[PERIPHERALS]</button>
+                        <button class="filter-btn" onclick="filterProducts('refurbished')">[REFURB]</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="featured-grid" id="productGrid">
+                    <!-- Products populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Services Page -->
+    <div id="services" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">TECHNICAL</span> SERVICES ]</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🔧</div>
+                            <div class="service-code">SVC-001</div>
+                        </div>
+                        <div class="service-title">SYSTEM REPAIR</div>
+                        <div class="service-description">Complete hardware diagnostics and repair services for all system architectures. Advanced troubleshooting protocols included.</div>
+                        <div class="service-price">FROM 2,000 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🔍</div>
+                            <div class="service-code">SVC-002</div>
+                        </div>
+                        <div class="service-title">DEEP DIAGNOSTICS</div>
+                        <div class="service-description">Professional hardware and software diagnostics using enterprise-grade diagnostic tools and protocols.</div>
+                        <div class="service-price">FROM 1,500 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🧹</div>
+                            <div class="service-code">SVC-003</div>
+                        </div>
+                        <div class="service-title">THERMAL MAINTENANCE</div>
+                        <div class="service-description">Comprehensive thermal management: component cleaning, thermal paste renewal, airflow optimization.</div>
+                        <div class="service-price">FROM 2,500 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">⚡</div>
+                            <div class="service-code">SVC-004</div>
+                        </div>
+                        <div class="service-title">PERFORMANCE UPGRADES</div>
+                        <div class="service-description">Strategic hardware upgrades for maximum performance gains. Component compatibility analysis included.</div>
+                        <div class="service-price">FROM 1,500 RSD + PARTS</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">💿</div>
+                            <div class="service-code">SVC-005</div>
+                        </div>
+                        <div class="service-title">OS deployment</div>
+                        <div class="service-description">Clean operating system deployment with driver optimization and security configuration protocols.</div>
+                        <div class="service-price">FROM 3,000 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🛡️</div>
+                            <div class="service-code">SVC-006</div>
+                        </div>
+                        <div class="service-title">SECURITY PROTOCOLS</div>
+                        <div class="service-description">Malware elimination and security hardening using advanced threat detection and removal systems.</div>
+                        <div class="service-price">FROM 2,000 RSD</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">💾</div>
+                            <div class="service-code">SVC-007</div>
+                        </div>
+                        <div class="service-title">DATA RECOVERY</div>
+                        <div class="service-description">Professional data recovery from damaged storage devices using specialized recovery protocols.</div>
+                        <div class="service-price">QUERY_REQUIRED</div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <div class="service-icon">🔄</div>
+                            <div class="service-code">SVC-008</div>
+                        </div>
+                        <div class="service-title">BACKUP SYSTEMS</div>
+                        <div class="service-description">Complete system backup and restore solutions with automated scheduling and verification protocols.</div>
+                        <div class="service-price">FROM 2,500 RSD</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">SYSTEM</span> INFO ]</h2>
+                <div style="max-width: 800px; margin: 0 auto;">
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <div class="terminal-dot red"></div>
+                                <div class="terminal-dot yellow"></div>
+                                <div class="terminal-dot green"></div>
+                            </div>
+                            <div class="terminal-title">about_pcwizerd.sh</div>
+                        </div>
+                        <div class="terminal-content">
+                            <div class="terminal-prompt">whoami</div>
+                            <div>PC_WIZERD // Advanced Technology Solutions Provider</div>
+                            <br>
+                            <div class="terminal-prompt">cat mission.txt</div>
+                            <div>Delivering cutting-edge computing solutions through premium hardware,</div>
+                            <div>expert technical services, and advanced system optimization.</div>
+                            <div>Empowering users with superior technology performance.</div>
+                            <br>
+                            <div class="terminal-prompt">ls -la core_values/</div>
+                            <div>drwxr-xr-x technical_excellence</div>
+                            <div>drwxr-xr-x premium_quality</div>
+                            <div>drwxr-xr-x customer_success</div>
+                            <div>drwxr-xr-x innovation_focus</div>
+                            <div>drwxr-xr-x reliability_standard</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: var(--card-bg); padding: 2.5rem; border: 1px solid var(--border-glow); margin-top: 3rem;">
+                        <h3 style="color: var(--primary-cyan); margin-bottom: 2rem; font-family: 'Orbitron', monospace; text-transform: uppercase; letter-spacing: 2px;">SYSTEM SPECIFICATIONS</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                            <div>
+                                <div style="color: var(--primary-green); font-weight: bold; margin-bottom: 0.5rem;">EXPERTISE LEVEL</div>
+                                <div style="color: var(--text-secondary);">Advanced / Professional</div>
+                            </div>
+                            <div>
+                                <div style="color: var(--primary-green); font-weight: bold; margin-bottom: 0.5rem;">SUPPORT STATUS</div>
+                                <div style="color: var(--text-secondary);">24/7 Active Monitoring</div>
+                            </div>
+                            <div>
+                                <div style="color: var(--primary-green); font-weight: bold; margin-bottom: 0.5rem;">WARRANTY LEVEL</div>
+                                <div style="color: var(--text-secondary);">Extended Coverage</div>
+                            </div>
+                            <div>
+                                <div style="color: var(--primary-green); font-weight: bold; margin-bottom: 0.5rem;">DEPLOYMENT RATE</div>
+                                <div style="color: var(--text-secondary);">500+ Systems Active</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section class="section" style="margin-top: 80px;">
+            <div class="container">
+                <h2 class="section-title">[ <span class="tech-accent">CONTACT</span> INTERFACE ]</h2>
+                
+                <div class="contact-info">
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3 style="color: var(--primary-cyan); font-family: 'Orbitron', monospace; text-transform: uppercase; margin-bottom: 1rem;">PHYSICAL LOCATION</h3>
+                        <p>Your Address Here<br>City, Serbia</p>
+                        <div class="terminal-window" style="margin-top: 1.5rem;">
+                            <div class="terminal-content">
+                                <div>MON-FRI: 09:00-18:00</div>
+                                <div>SAT: 09:00-15:00</div>
+                                <div>SUN: OFFLINE</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">📞</div>
+                        <h3 style="color: var(--primary-cyan); font-family: 'Orbitron', monospace; text-transform: uppercase; margin-bottom: 1rem;">VOICE CHANNEL</h3>
+                        <p style="color: var(--primary-green); font-size: 1.2rem; font-weight: bold;">+381 XX XXX XXX</p>
+                        <p style="color: var(--text-secondary);">Direct line for technical support and sales inquiries</p>
+                    </div>
+                    
+                    <div class="contact-card">
+                        <div class="contact-icon">✉️</div>
+                        <h3 style="color: var(--primary-cyan); font-family: 'Orbitron', monospace; text-transform: uppercase; margin-bottom: 1rem;">DATA TRANSMISSION</h3>
+                        <p style="color: var(--primary-green); font-size: 1.2rem; font-weight: bold;">info@pcwizard.rs</p>
+                        <p style="color: var(--text-secondary);">Response time: &lt; 24 hours</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--card-bg); padding: 3rem; border: 1px solid var(--border-glow); text-align: center;">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary-cyan); font-family: 'Orbitron', monospace; text-transform: uppercase;">INITIATE CONTACT PROTOCOL</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">Select preferred communication channel for immediate response</p>
+                    <div class="cta-buttons">
+                        <a href="tel:+381xxxxxxxxx" class="btn btn-primary">VOICE_CONNECT</a>
+                        <a href="mailto:info@pcwizard.rs" class="btn btn-secondary">DATA_TRANSMIT</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeProductModal()">×</button>
+            <div id="modalContent">
+                <!-- Modal content populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>PC WIZERD</h3>
+                <p>Advanced technology solutions provider specializing in high-performance computing systems and expert technical services.</p>
+                <div class="terminal-window" style="margin-top: 1.5rem;">
+                    <div class="terminal-content">
+                        <div>System Status: ONLINE</div>
+                        <div>Services: OPERATIONAL</div>
+                        <div>Uptime: 99.9%</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>NAVIGATION</h3>
+                <a href="#" onclick="showPage('home')">[HOME]</a>
+                <a href="#" onclick="showPage('catalog')">[CATALOG]</a>
+                <a href="#" onclick="showPage('services')">[SERVICES]</a>
+                <a href="#" onclick="showPage('about')">[ABOUT]</a>
+                <a href="#" onclick="showPage('contact')">[CONTACT]</a>
+            </div>
+            <div class="footer-section">
+                <h3>HARDWARE CATEGORIES</h3>
+                <a href="#" onclick="filterProducts('laptops')">[MOBILE_SYSTEMS]</a>
+                <a href="#" onclick="filterProducts('components')">[COMPONENTS]</a>
+                <a href="#" onclick="filterProducts('accessories')">[PERIPHERALS]</a>
+                <a href="#" onclick="filterProducts('refurbished')">[REFURB_UNITS]</a>
+            </div>
+            <div class="footer-section">
+                <h3>SYSTEM CONTACT</h3>
+                <p>📍 Location: Your Address, City</p>
+                <p>📞 Voice: +381 XX XXX XXX</p>
+                <p>✉️ Data: info@pcwizard.rs</p>
+                <p>🕒 Runtime: MON-FRI 09:00-18:00</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PC_WIZERD.SYS // All systems operational // Built for digital excellence</p>
+            <p>VIRALIUM E-MARKETING</p>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced product data with tech styling
+        const products = [
+            {
+                id: 'gaming-rig-alpha',
+                name: 'GAMING RIG ALPHA',
+                category: 'laptops',
+                price: '125,000 RSD',
+                description: 'High-performance battle station with RTX 4070 graphics core and AMD Ryzen 7 processor optimized for competitive gaming.',
+                image: '🔥',
+                tags: ['GAMING', 'RTX_4070', 'RYZEN_7', 'HIGH_PERF'],
+                status: 'AVAILABLE',
+                id_code: 'SYS-001-ALPHA',
+                specs: {
+                    'CPU': 'AMD Ryzen 7 5800H @ 4.4GHz',
+                    'GPU': 'NVIDIA RTX 4070 8GB GDDR6X',
+                    'RAM': '32GB DDR4-3200 Dual Channel',
+                    'STORAGE': '1TB NVMe PCIe 4.0 SSD',
+                    'DISPLAY': '15.6" QHD 165Hz G-Sync',
+                    'COOLING': 'Advanced Thermal Management'
+                }
+            },
+            {
+                id: 'workstation-pro',
+                name: 'WORKSTATION PRO',
+                category: 'laptops',
+                price: 'QUERY_REQUIRED',
+                description: 'Professional-grade workstation engineered for content creation, 3D rendering, and intensive computational tasks.',
+                image: '⚡',
+                tags: ['WORKSTATION', 'CUSTOM', '64GB_RAM', 'ENTERPRISE'],
+                status: 'CUSTOM_BUILD',
+                id_code: 'SYS-002-PRO',
+                specs: {
+                    'CPU': 'Intel Core i9-12900H @ 5.0GHz',
+                    'GPU': 'NVIDIA RTX A5000 16GB',
+                    'RAM': '64GB DDR5-4800 ECC',
+                    'STORAGE': '2TB NVMe RAID 0 + 4TB HDD',
+                    'DISPLAY': '17.3" 4K OLED 100% Adobe RGB',
+                    'CERTIFICATION': 'ISV Certified'
+                }
+            },
+            {
+                id: 'mobile-stealth',
+                name: 'MOBILE STEALTH',
+                category: 'laptops',
+                price: '85,000 RSD',
+                description: 'Ultra-portable stealth unit optimized for business operations and secure communications.',
+                image: '💼',
+                tags: ['BUSINESS', 'ULTRABOOK', 'SECURE', 'PORTABLE'],
+                status: 'IN_STOCK',
+                id_code: 'SYS-003-STEALTH',
+                specs: {
+                    'CPU': 'Intel Core i7-1260P',
+                    'GPU': 'Intel Iris Xe Graphics',
+                    'RAM': '16GB LPDDR5-5200',
+                    'STORAGE': '512GB NVMe PCIe 4.0',
+                    'DISPLAY': '14" FHD IPS Anti-Glare',
+                    'SECURITY': 'TPM 2.0 + Fingerprint'
+                }
+            },
+            {
+                id: 'gpu-rtx4080',
+                name: 'RTX 4080 SUPER',
+                category: 'components',
+                price: '150,000 RSD',
+                description: 'Next-generation graphics processing unit with advanced ray tracing and AI acceleration capabilities.',
+                image: '🎮',
+                tags: ['GPU', 'RTX_4080', 'RAY_TRACING', 'DLSS_3'],
+                status: 'LIMITED_STOCK',
+                id_code: 'GPU-001-RTX4080',
+                specs: {
+                    'ARCHITECTURE': 'Ada Lovelace',
+                    'MEMORY': '16GB GDDR6X',
+                    'MEMORY_BUS': '256-bit',
+                    'BASE_CLOCK': '2205 MHz',
+                    'BOOST_CLOCK': '2505 MHz',
+                    'RT_CORES': '3rd Gen RT Cores'
+                }
+            },
+            {
+                id: 'cpu-ryzen9',
+                name: 'RYZEN 9 7900X',
+                category: 'components',
+                price: '65,000 RSD',
+                description: 'High-performance processor with 12 cores and 24 threads for maximum computational power.',
+                image: '🔧',
+                tags: ['CPU', 'RYZEN_9', '12_CORE', 'AM5'],
+                status: 'AVAILABLE',
+                id_code: 'CPU-001-R9-7900X',
+                specs: {
+                    'CORES': '12 Cores / 24 Threads',
+                    'BASE_CLOCK': '4.7 GHz',
+                    'MAX_BOOST': '5.6 GHz',
+                    'CACHE': '76MB Total Cache',
+                    'TDP': '170W',
+                    'SOCKET': 'AM5'
+                }
+            },
+            {
+                id: 'motherboard-x670e',
+                name: 'X670E EXTREME',
+                category: 'components',
+                price: '45,000 RSD',
+                description: 'Premium motherboard with advanced connectivity and overclocking capabilities.',
+                image: '🔧',
+                tags: ['MOTHERBOARD', 'X670E', 'DDR5', 'PCIE_5'],
+                status: 'AVAILABLE',
+                id_code: 'MB-001-X670E',
+                specs: {
+                    'SOCKET': 'AM5',
+                    'CHIPSET': 'AMD X670E',
+                    'MEMORY': 'DDR5-6000+ (OC)',
+                    'PCIE': 'PCIe 5.0 x16',
+                    'CONNECTIVITY': 'WiFi 6E + 2.5G LAN',
+                    'PORTS': 'USB 4.0 + Thunderbolt'
+                }
+            },
+            {
+                id: 'ram-64gb-ddr5',
+                name: 'DDR5-6000 64GB KIT',
+                category: 'components',
+                price: '35,000 RSD',
+                description: 'High-speed memory kit optimized for maximum bandwidth and low latency performance.',
+                image: '💾',
+                tags: ['RAM', 'DDR5', '64GB', 'HIGH_SPEED'],
+                status: 'IN_STOCK',
+                id_code: 'RAM-001-DDR5-64',
+                specs: {
+                    'CAPACITY': '64GB (2x32GB)',
+                    'TYPE': 'DDR5',
+                    'SPEED': '6000 MT/s',
+                    'LATENCY': 'CL30-36-36-76',
+                    'VOLTAGE': '1.35V',
+                    'PROFILE': 'XMP 3.0 Ready'
+                }
+            },
+            {
+                id: 'ssd-2tb-gen4',
+                name: 'NVMe PCIe 4.0 2TB',
+                category: 'components',
+                price: '25,000 RSD',
+                description: 'Ultra-high speed storage solution with PCIe 4.0 interface for maximum data throughput.',
+                image: '💿',
+                tags: ['SSD', 'NVME', '2TB', 'PCIE_4'],
+                status: 'AVAILABLE',
+                id_code: 'SSD-001-2TB-GEN4',
+                specs: {
+                    'CAPACITY': '2TB',
+                    'INTERFACE': 'NVMe PCIe 4.0 x4',
+                    'READ_SPEED': '7,400 MB/s',
+                    'WRITE_SPEED': '6,800 MB/s',
+                    'FORM_FACTOR': 'M.2 2280',
+                    'CONTROLLER': '3D NAND Flash'
+                }
+            },
+            {
+                id: 'keyboard-mech-rgb',
+                name: 'TACTICAL KEYBOARD PRO',
+                category: 'accessories',
+                price: '18,000 RSD',
+                description: 'Professional mechanical keyboard with tactical switches and advanced RGB matrix.',
+                image: '⌨️',
+                tags: ['KEYBOARD', 'MECHANICAL', 'RGB', 'TACTICAL'],
+                status: 'IN_STOCK',
+                id_code: 'KB-001-TACTICAL',
+                specs: {
+                    'SWITCHES': 'Cherry MX Red/Blue/Brown',
+                    'BACKLIGHTING': 'Per-key RGB',
+                    'LAYOUT': 'Full Size (104 keys)',
+                    'CONNECTION': 'USB-C Wired',
+                    'FEATURES': 'N-Key Rollover',
+                    'SOFTWARE': 'Advanced Macro Support'
+                }
+            },
+            {
+                id: 'mouse-precision',
+                name: 'PRECISION MOUSE X1',
+                category: 'accessories',
+                price: '12,000 RSD',
+                description: 'High-precision gaming mouse with advanced sensor technology and customizable weights.',
+                image: '🖱️',
+                tags: ['MOUSE', 'GAMING', 'PRECISION', 'WIRELESS'],
+                status: 'AVAILABLE',
+                id_code: 'MS-001-PRECISION',
+                specs: {
+                    'SENSOR': 'PixArt PMW3360',
+                    'DPI': 'Up to 12,000 DPI',
+                    'POLLING_RATE': '1000 Hz',
+                    'BUTTONS': '8 Programmable',
+                    'BATTERY': '70+ Hours',
+                    'CONNECTIVITY': '2.4GHz + Bluetooth'
+                }
+            },
+            {
+                id: 'headset-surround',
+                name: 'SURROUND HEADSET X7',
+                category: 'accessories',
+                price: '22,000 RSD',
+                description: 'Professional gaming headset with 7.1 surround sound and noise-cancelling microphone.',
+                image: '🎧',
+                tags: ['HEADSET', 'SURROUND', '7.1', 'WIRELESS'],
+                status: 'IN_STOCK',
+                id_code: 'HS-001-SURROUND',
+                specs: {
+                    'DRIVERS': '50mm Neodymium',
+                    'FREQUENCY': '20Hz - 20kHz',
+                    'SURROUND': 'Virtual 7.1',
+                    'MICROPHONE': 'Noise Cancelling',
+                    'BATTERY': '24+ Hours',
+                    'CONNECTION': '2.4GHz Wireless'
+                }
+            },
+            {
+                id: 'monitor-4k-gaming',
+                name: 'DISPLAY MATRIX 4K',
+                category: 'accessories',
+                price: '65,000 RSD',
+                description: 'Ultra-high definition gaming monitor with HDR support and variable refresh rate.',
+                image: '🖥️',
+                tags: ['MONITOR', '4K', 'HDR', '144HZ'],
+                status: 'LIMITED_STOCK',
+                id_code: 'MON-001-4K',
+                specs: {
+                    'SIZE': '27 inches',
+                    'RESOLUTION': '3840 x 2160 (4K UHD)',
+                    'REFRESH_RATE': '144Hz',
+                    'PANEL': 'IPS Quantum Dot',
+                    'HDR': 'DisplayHDR 600',
+                    'CONNECTIVITY': 'HDMI 2.1 + DP 1.4'
+                }
+            },
+            {
+                id: 'refurb-office-unit',
+                name: 'OFFICE UNIT R1',
+                category: 'refurbished',
+                price: '35,000 RSD',
+                description: 'Professionally refurbished office workstation with enterprise-grade components.',
+                image: '♻️',
+                tags: ['REFURBISHED', 'OFFICE', 'ENTERPRISE', 'CERTIFIED'],
+                status: 'CERTIFIED_REFURB',
+                id_code: 'REF-001-OFFICE',
+                specs: {
+                    'CPU': 'Intel Core i5-10400',
+                    'RAM': '16GB DDR4',
+                    'STORAGE': '512GB SSD',
+                    'GPU': 'Intel UHD 630',
+                    'CONDITION': 'Grade A+',
+                    'WARRANTY': '12 Months'
+                }
+            },
+            {
+                id: 'refurb-workstation',
+                name: 'WORKSTATION R2',
+                category: 'refurbished',
+                price: '55,000 RSD',
+                description: 'High-performance refurbished workstation optimized for professional applications.',
+                image: '♻️',
+                tags: ['REFURBISHED', 'WORKSTATION', 'PROFESSIONAL', 'TESTED'],
+                status: 'QUALITY_ASSURED',
+                id_code: 'REF-002-WORKSTATION',
+                specs: {
+                    'CPU': 'Intel Core i7-10700K',
+                    'RAM': '32GB DDR4',
+                    'STORAGE': '1TB NVMe SSD',
+                    'GPU': 'NVIDIA GTX 1660 Ti',
+                    'CONDITION': 'Grade A',
+                    'WARRANTY': '18 Months'
+                }
+            }
+        ];
+
+        // Page navigation with tech effects
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.classList.remove('active');
+                page.style.opacity = '0';
+            });
+            
+            setTimeout(() => {
+                document.getElementById(pageId).classList.add('active');
+                document.getElementById(pageId).style.opacity = '1';
+                
+                if (pageId === 'catalog') {
+                    loadProducts();
+                }
+                
+                window.scrollTo(0, 0);
+            }, 150);
+            
+            document.getElementById('navMenu').classList.remove('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Load products with tech styling
+        function loadProducts(filteredProducts = products) {
+            const productGrid = document.getElementById('productGrid');
+            if (!productGrid) return;
+            
+            productGrid.innerHTML = '';
+            
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.onclick = () => openProductModal(product.id);
+                
+                productCard.innerHTML = `
+                    <div class="product-header">
+                        <div class="product-id">${product.id_code}</div>
+                        <div class="product-status">${product.status}</div>
+                    </div>
+                    <div class="product-image">${product.image}</div>
+                    <div class="product-title">${product.name}</div>
+                    <div class="product-description">${product.description}</div>
+                    <div class="product-specs">
+                        ${product.tags.map(tag => `<span class="spec-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="product-price">${product.price}</div>
+                `;
+                
+                productGrid.appendChild(productCard);
+            });
+        }
+
+        // Filter products by category
+        function filterProducts(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            let filteredProducts = products;
+            if (category !== 'all') {
+                filteredProducts = products.filter(product => product.category === category);
+            }
+            
+            showPage('catalog');
+            setTimeout(() => loadProducts(filteredProducts), 300);
+        }
+
+        // Search products with tech styling
+        function searchProducts() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const filteredProducts = products.filter(product => 
+                product.name.toLowerCase().includes(searchTerm) ||
+                product.description.toLowerCase().includes(searchTerm) ||
+                product.tags.some(tag => tag.toLowerCase().includes(searchTerm)) ||
+                product.id_code.toLowerCase().includes(searchTerm)
+            );
+            
+            loadProducts(filteredProducts);
+        }
+
+        // Open product modal with tech styling
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const modalContent = document.getElementById('modalContent');
+            modalContent.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+                    <div>
+                        <div style="color: var(--primary-cyan); font-size: 0.9rem; margin-bottom: 0.5rem; font-family: 'Orbitron', monospace;">${product.id_code}</div>
+                        <h2 style="color: var(--text-primary); margin-bottom: 0.5rem; font-family: 'Orbitron', monospace; text-transform: uppercase;">${product.name}</h2>
+                        <div style="padding: 0.25rem 0.75rem; background: rgba(0, 255, 65, 0.2); border: 1px solid var(--primary-green); color: var(--primary-green); font-size: 0.8rem; text-transform: uppercase; display: inline-block;">${product.status}</div>
+                    </div>
+                    <div style="font-size: 4rem;">${product.image}</div>
+                </div>
+                
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.1rem; line-height: 1.6;">${product.description}</p>
+                <div style="font-size: 1.8rem; font-weight: bold; color: var(--primary-green); margin-bottom: 2rem; font-family: 'Orbitron', monospace;">${product.price}</div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--primary-cyan); margin-bottom: 1.5rem; font-family: 'Orbitron', monospace; text-transform: uppercase;">TECHNICAL SPECIFICATIONS</h3>
+                    <div style="background: rgba(0, 0, 0, 0.5); padding: 2rem; border: 1px solid var(--border-glow);">
+                        ${Object.entries(product.specs).map(([key, value]) => 
+                            `<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                                <strong style="color: var(--primary-green); font-family: 'JetBrains Mono', monospace;">${key}:</strong> 
+                                <span style="color: var(--text-secondary); font-family: 'JetBrains Mono', monospace;">${value}</span>
+                            </div>`
+                        ).join('')}
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        ${product.tags.map(tag => `<span class="spec-tag">${tag}</span>`).join('')}
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <a href="#" onclick="showPage('contact')" class="btn btn-primary" style="margin-right: 1rem;">INITIATE_PURCHASE</a>
+                    <button onclick="closeProductModal()" class="btn btn-secondary">CLOSE_INTERFACE</button>
+                </div>
+            `;
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close product modal
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const navMenu = document.getElementById('navMenu');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (!navMenu.contains(e.target) && !menuBtn.contains(e.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+
+        // Handle escape key for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        // Matrix background effect
+        function createMatrixEffect() {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.className = 'matrix-bg';
+            document.getElementById('matrixBg').appendChild(canvas);
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
+            const matrixArray = matrix.split("");
+
+            const fontSize = 10;
+            const columns = canvas.width / fontSize;
+
+            const drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = 'rgba(0, 255, 255, 0.3)';
+                ctx.font = fontSize + 'px JetBrains Mono';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            setInterval(draw, 35);
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+            createMatrixEffect();
+            
+            // Add smooth transitions
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => {
+                page.style.transition = 'opacity 0.3s ease';
+            });
+        });
+    </script>
+</body>
+</html>
